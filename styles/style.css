@@ -24,10 +24,11 @@ main h2{
     margin: 5vh auto 5vh auto;
 }
 
-input, select, label{
+input, select, label, button{
     display: block;
     margin: 1vh auto 1vh 1vw;
 }
+
 
 footer {
   position: absolute;

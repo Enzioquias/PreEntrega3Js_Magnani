@@ -32,26 +32,54 @@
 
     <main>
       <h2>Calculadora de Forrajes para Animales de Granja</h2>
-      <label for="eleccion">Elegir Animal</label>
-      <select name="eleccion" id="eleccion">
-        <option value="">Gallinas ponedoras Lohmann Marron</option>
-        <option value="">Gallinas ponedoras Leghorn Blanca</option>
-        <option value="">Pollos parrilleros Broiler</option>
-        <option value="">Cerdos</option>
-        <option value="">Ganado Bovino</option>
-      </select>
 
-      <label for="">Introducir cantidad de animales a criar</label>
-      <input id="" name="" type="text" />
+      <form action="">
+        <label for="eleccionAnimal">Elegir Animal</label>
+        <select name="eleccionAnimal" id="eleccionAnimal">
+          <option value="0">Gallinas ponedoras Lohmann Marron</option>
+          <option value="1">Gallinas ponedoras Leghorn Blanca</option>
+          <option value="2">Pollos parrilleros Broiler</option>
+          <option value="3">Cerdos</option>
+          <option value="4">Ganado Bovino</option>
+        </select>
 
-      <label for=""><strong>Tiempo de crianza</strong></label>
-      <input disabled id="" name="" type="text" />
+        <label for="cantidadAnimales"
+          >Introducir cantidad de animales a criar</label
+        >
+        <input id="cantidadAnimales" name="cantidadAnimales" type="number" />
 
-      <label for=""><strong>Kilos de alimento a consumir</strong></label>
-      <input disabled id="" name="" type="text" />
+        <label id="labelTiempo" for="resultadoTiempo"><strong>Tiempo de crianza (Días)</strong></label>
+        <input
+          disabled
+          id="resultadoTiempo"
+          name="resultadoTiempo"
+          type="number"
+        />
 
-      <label for=""><strong>Costo de crianza del lote</strong></label>
-      <input disabled id="" name="" type="text" />
+        <label for="resultadoKilosBalanceado"
+          ><strong>Alimento a consumir (Kg)</strong></label
+        >
+        <input
+          disabled
+          id="resultadoKilosBalanceado"
+          name="resultadoKilosBalanceado"
+          type="number"
+        />
+
+        <label for="resultadoCosto"
+          ><strong>Costo de crianza del lote (AR$)</strong></label
+        >
+        <input
+          disabled
+          id="resultadoCosto"
+          name="resultadoCosto"
+          type="number"
+        />
+
+        <button type="submit" name="botonCalcular" id="botonCalcular">
+          ¡Calcular!
+        </button>
+      </form>
     </main>
 
     <footer class="footerIndex">
