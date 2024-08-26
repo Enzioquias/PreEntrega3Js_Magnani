@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Calculadora de Forrajes</title>
+  </head>
+
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg bg-body-tertiary"
+        data-bs-theme="light"
+        z-3
+      >
+        <div class="container-fluid">
+          <a id="logoAFN" class="navbar-brand links" href="#">
+            <img
+              class="navbar-logo"
+              src="./assets/images/logoNaranjaTransparent.png"
+              alt="Avicola FDN"
+            />
+          </a>
+          <a class="navbar-brand links" href="#">
+            <h2>Avícola Frutos del Nido</h2>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Calculadora de Forrajes para Animales de Granja</h2>
+      <label for="eleccion">Elegir Animal</label>
+      <select name="eleccion" id="eleccion">
+        <option value="">Gallinas ponedoras Lohmann Marron</option>
+        <option value="">Gallinas ponedoras Leghorn Blanca</option>
+        <option value="">Pollos parrilleros Broiler</option>
+        <option value="">Cerdos</option>
+        <option value="">Ganado Bovino</option>
+      </select>
+
+      <label for="">Introducir cantidad de animales a criar</label>
+      <input id="" name="" type="text" />
+
+      <label for=""><strong>Tiempo de crianza</strong></label>
+      <input disabled id="" name="" type="text" />
+
+      <label for=""><strong>Kilos de alimento a consumir</strong></label>
+      <input disabled id="" name="" type="text" />
+
+      <label for=""><strong>Costo de crianza del lote</strong></label>
+      <input disabled id="" name="" type="text" />
+    </main>
+
+    <footer class="footerIndex">
+      <div class="footerChild footerChild1">
+        <p>Avícola Frutos del Nido</p>
+        <p>Granja avícola y Alimentos Balanceados de Granja</p>
+      </div>
+      <div class="footerChild footerChild2">
+        <div>
+          <a class="icoFooter" target="_blank" href="https://www.facebook.com/"
+            ><img src="./assets/images/iconFace.png" alt="Icono de Facebook"
+          /></a>
+          <a
+            class="icoFooter"
+            target="_blank"
+            href="https://twitter.com/?lang=es"
+            ><img src="./assets/images/icoTwitter.png" alt="Icono de Twitter"
+          /></a>
+          <a class="icoFooter" target="_blank" href="https://www.instagram.com/"
+            ><img src="./assets/images/icoInsta.png" alt="Icono de Instagram"
+          /></a>
+        </div>
+        <div><p>Nuestras Redes</p></div>
+      </div>
+      <div class="footerChild footerChild3">
+        <p><a class="links" href="#logoAFN">Ir a la cima</a></p>
+      </div>
+    </footer>
+
+    <script src="calculadora.js"></script>
+  </body>
+</html>
