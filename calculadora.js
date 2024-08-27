@@ -6,13 +6,19 @@ const labelTiempo = document.getElementById("labelTiempo");
 const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
+const navbar = document.querySelector("nav");
 const footer = document.querySelector("footer");
 const resultadoCosto = document.getElementById("resultadoCosto");
 const aclaraciones = document.getElementById("aclaraciones");
-const modoOscuro = document.getElementById("modoOscuro");
+const modoOscuroBoton = document.getElementById("modoOscuro");
 const body = document.querySelector("body");
 
-let darkMode = false;
+const darkMode = localStorage.getItem("darkMode") === "true";
+// El resultado es un booleano que indica si ya teniamos darkMode enabled desde antes. De ser asi aplica los cambios de dark mode
+if (localStorage.getItem("darkMode") === "true"){
+  modoOscuroOn();
+}
+
 
 botonCalcular.addEventListener("click", (event) => {
   event.preventDefault();
@@ -75,20 +81,9 @@ function calculoDePagina() {
   }
 }
 
-modoOscuro.addEventListener("click",(event)=> {
-if (darkMode) {body.style.backgroundColor="";
-  body.style.color='';
-  footer.style.backgroundColor="";
-  footer.style.color='';
-  darkMode=false;}
-
-else {body.style.backgroundColor="rgb(40,40,40)";
-  body.style.color='white';
-  footer.style.backgroundColor="black";
-  footer.style.color='white';
-  darkMode=true;}
+modoOscuroBoton.addEventListener("click",(event)=> {
+ modoOscuroCambios();
 })
-
 
 
 function removerTiempo() {
@@ -99,4 +94,33 @@ function removerTiempo() {
 function mostrarTiempo() {
   resultadoTiempo.style.display = "block";
   labelTiempo.style.display = "block";
+}
+
+function modoOscuroCambios() {
+  if (localStorage.getItem("darkMode")==="true") {modoOscuroOff();
+    localStorage.setItem("darkMode", "");
+  }
+  
+  else {
+    modoOscuroOn();
+    localStorage.setItem("darkMode", "true");}
+
+}
+
+function modoOscuroOn(){
+  body.style.backgroundColor="rgb(40,40,40)";
+    body.style.color='white';
+    footer.style.backgroundColor="black";
+    footer.style.color='white';
+    navbar.style.backgroundImage = 'linear-gradient(to top, rgb(161, 216, 148), rgb(66, 66, 66))!important';
+    // ^^^^^^^^^^ No esta funcionando ^^^^^^^^^^;
+}
+
+function modoOscuroOff(){
+  body.style.backgroundColor="";
+  body.style.color='';
+  footer.style.backgroundColor="";
+  footer.style.color='';
+  navbar.style.backgroundImage="";
+  localStorage.setItem("darkMode", "f");
 }
