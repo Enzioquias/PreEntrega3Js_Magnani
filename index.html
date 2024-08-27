@@ -26,7 +26,13 @@
           <a class="navbar-brand links" href="#">
             <h2>Avícola Frutos del Nido</h2>
           </a>
-        </div>
+          <div class="separadorNavBar"></div>
+          <button ><img
+            class="modoOscuro"
+            id="modoOscuro"
+            src="./assets/images/modo-oscuro.png"
+            alt="modo oscuro"
+          /></button>
       </nav>
     </header>
 
@@ -48,7 +54,9 @@
         >
         <input id="cantidadAnimales" name="cantidadAnimales" type="number" />
 
-        <label id="labelTiempo" for="resultadoTiempo"><strong>Tiempo de crianza (Días)</strong></label>
+        <label id="labelTiempo" for="resultadoTiempo"
+          ><strong>Tiempo de crianza (Días)</strong></label
+        >
         <input
           disabled
           id="resultadoTiempo"
@@ -76,10 +84,25 @@
           type="number"
         />
 
-        <button type="submit" name="botonCalcular" id="botonCalcular">
+        <button
+          class="btn btn-success"
+          type="submit"
+          name="botonCalcular"
+          id="botonCalcular"
+        >
           ¡Calcular!
         </button>
+        <button
+          class="btn btn-warning"
+          type="submit"
+          name="botonCalcular"
+          id="botonCalcular"
+        >
+          Borrar todo
+        </button>
       </form>
+
+      <i><p id="aclaraciones"></p></i>
     </main>
 
     <footer class="footerIndex">

@@ -18,13 +18,21 @@ body {
   border-width: 0 !important;
 }
 
+.separadorNavBar{
+  width: 80%;
+}
+.modoOscuro {
+height: 50px;
+width: 50px;
+}
+
 main h2{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
     margin: 5vh auto 5vh auto;
 }
 
-input, select, label, button{
+input, select, label, button, #aclaraciones{
     display: block;
     margin: 1vh auto 1vh 1vw;
 }
