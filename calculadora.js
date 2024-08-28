@@ -6,6 +6,8 @@ const labelTiempo = document.getElementById("labelTiempo");
 const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
+
+const tituloNavBar = document.getElementById("navbar-titulo");
 const navbar = document.querySelector("nav");
 const footer = document.querySelector("footer");
 const resultadoCosto = document.getElementById("resultadoCosto");
@@ -15,14 +17,42 @@ const body = document.querySelector("body");
 
 const darkMode = localStorage.getItem("darkMode") === "true";
 // El resultado es un booleano que indica si ya teniamos darkMode enabled desde antes. De ser asi aplica los cambios de dark mode
-if (localStorage.getItem("darkMode") === "true"){
+if (localStorage.getItem("darkMode") === "true") {
   modoOscuroOn();
 }
 
+class ItemHistorial {
+  constructor(
+    animal,
+    cantidadAnimales,
+    cantidadKilosBalanceado,
+    costoBalanceado,
+    tiempoCrianza
+  ) {
+    this.animal = animal;
+    this.cantidadAnimales = cantidadAnimales;
+    this.cantidadKilosBalanceado = cantidadKilosBalanceado;
+    this.costoBalanceado = costoBalanceado;
+    this.tiempoCrianza = tiempoCrianza;
+  }
+}
+const itemsHistorial = [];
 
 botonCalcular.addEventListener("click", (event) => {
   event.preventDefault();
   calculoDePagina();
+  if(inputCantidad.value>0){
+  itemsHistorial.push(
+    new ItemHistorial(
+      selector.value,
+      inputCantidad.value,
+      resultadoKilosBalanceado.value,
+      resultadoCosto.value,
+      resultadoTiempo.value
+    )
+  );
+  localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
+}
 });
 
 selector.addEventListener("change", (event) => {
@@ -33,29 +63,34 @@ inputCantidad.addEventListener("change", (event) => {
   calculoDePagina();
 });
 
+const animalesStorage = JSON.parse(localStorage.getItem("animales"));
+if (animalesStorage) {
+  animales = animales.concat();
+}
+
 function calculoDePagina() {
   mostrarTiempo();
-  // prevenimos el reseteo de la pagina al hacer submit con el boton
+
 
   let seleccionAnimal = selector.value;
   let cantidadAnimales = inputCantidad.value;
 
   switch (seleccionAnimal) {
-    case "0":
+    case "Ponedora Lohmahn":
       resultadoTiempo.value = 115;
       resultadoKilosBalanceado.value = 7 * cantidadAnimales;
       resultadoCosto.value = resultadoKilosBalanceado.value * 350;
       aclaraciones.innerText = `Costo de crianza y consumo de alimento calculados desde nacimiento hasta semana 17 (previo a inicio de postura)`;
       break;
 
-    case "1":
+    case "Ponedora Leghorn":
       resultadoTiempo.value = 115;
       resultadoKilosBalanceado.value = 6 * cantidadAnimales;
       resultadoCosto.value = resultadoKilosBalanceado.value * 350;
       aclaraciones.innerText = `Costo de crianza y consumo de alimento calculados desde nacimiento hasta semana 17 (previo a inicio de postura)`;
       break;
 
-    case "2":
+    case "Pollos Parrilleros Broiler":
       resultadoTiempo.value = 45;
       resultadoKilosBalanceado.value = 5.5 * cantidadAnimales;
       resultadoCosto.value = resultadoKilosBalanceado.value * 380;
@@ -63,14 +98,14 @@ function calculoDePagina() {
 
       break;
 
-    case "3":
+    case "Cerdos":
       removerTiempo();
       resultadoKilosBalanceado.value = 4 * cantidadAnimales;
       resultadoCosto.value = resultadoKilosBalanceado.value * 390;
       aclaraciones.innerText = `Costo de crianza y consumo de alimento calculados para una razon diaria y asumiendo un lote de cerdos de aprox 80-100kg de peso vivo \n \n En caso de ser necesario realizar ajustes a otros pesos de porcinos, calcular ración diaria equivalente al 4% del peso vivo de los animales.`;
       break;
 
-    case "4":
+    case "Ganado Bovino":
       removerTiempo();
       resultadoKilosBalanceado.value = 5 * cantidadAnimales;
       resultadoCosto.value = resultadoKilosBalanceado.value * 310;
@@ -81,10 +116,9 @@ function calculoDePagina() {
   }
 }
 
-modoOscuroBoton.addEventListener("click",(event)=> {
- modoOscuroCambios();
-})
-
+modoOscuroBoton.addEventListener("click", (event) => {
+  modoOscuroCambios();
+});
 
 function removerTiempo() {
   resultadoTiempo.style.display = "none";
@@ -97,30 +131,40 @@ function mostrarTiempo() {
 }
 
 function modoOscuroCambios() {
-  if (localStorage.getItem("darkMode")==="true") {modoOscuroOff();
+  if (localStorage.getItem("darkMode") === "true") {
+    modoOscuroOff();
     localStorage.setItem("darkMode", "");
-  }
-  
-  else {
+  } else {
     modoOscuroOn();
-    localStorage.setItem("darkMode", "true");}
-
+    localStorage.setItem("darkMode", "true");
+  }
 }
 
-function modoOscuroOn(){
-  body.style.backgroundColor="rgb(40,40,40)";
-    body.style.color='white';
-    footer.style.backgroundColor="black";
-    footer.style.color='white';
-    navbar.style.backgroundImage = 'linear-gradient(to top, rgb(161, 216, 148), rgb(66, 66, 66))!important';
-    // ^^^^^^^^^^ No esta funcionando ^^^^^^^^^^;
+function modoOscuroOn() {
+  body.style.backgroundColor = "rgb(40,40,40)";
+  body.style.color = "white";
+  footer.style.backgroundColor = "black";
+  footer.style.color = "white";
+  resultadoCosto.style.color = "white";
+  resultadoKilosBalanceado.style.color = "white";
+  resultadoTiempo.style.color = "white";
+  navbar.style.setProperty(
+    "background-image",
+    "linear-gradient(to bottom, rgb(52, 173, 52), rgb(40, 40, 40)",
+    "important"
+  );
+  tituloNavBar.style.setProperty("color", "white", "important");
 }
 
-function modoOscuroOff(){
-  body.style.backgroundColor="";
-  body.style.color='';
-  footer.style.backgroundColor="";
-  footer.style.color='';
-  navbar.style.backgroundImage="";
+function modoOscuroOff() {
+  body.style.backgroundColor = "";
+  body.style.color = "";
+  footer.style.backgroundColor = "";
+  footer.style.color = "";
+  navbar.style.backgroundImage = "";
+  tituloNavBar.style.color = "";
+  resultadoCosto.style.color = "";
+  resultadoKilosBalanceado.style.color = "";
+  resultadoTiempo.style.color = "";
   localStorage.setItem("darkMode", "f");
 }

@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="shortcut icon"
+      href="./assets/images/logoNaranjaTransparent.png"
+      type="image/x-icon"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="./styles/style.css" />
@@ -24,88 +29,115 @@
             />
           </a>
           <a class="navbar-brand links" href="#">
-            <h2>Avícola Frutos del Nido</h2>
+            <h2 id="navbar-titulo">Avícola Frutos del Nido</h2>
           </a>
           <div class="separadorNavBar"></div>
-          <a href="#"><img
-            class="modoOscuro"
-            id="modoOscuro"
-            src="./assets/images/modo-oscuro.png"
-            alt="modo oscuro"
+          <a href="#"
+            ><img
+              class="modoOscuro"
+              id="modoOscuro"
+              src="./assets/images/modo-oscuro.png"
+              alt="modo oscuro"
           /></a>
+        </div>
       </nav>
     </header>
 
     <main>
       <h2>Calculadora de Forrajes para Animales de Granja</h2>
 
-      <form action="">
-        <label for="eleccionAnimal">Elegir Animal</label>
-        <select name="eleccionAnimal" id="eleccionAnimal">
-          <option value="0">Gallinas ponedoras Lohmann Marron</option>
-          <option value="1">Gallinas ponedoras Leghorn Blanca</option>
-          <option value="2">Pollos parrilleros Broiler</option>
-          <option value="3">Cerdos</option>
-          <option value="4">Ganado Bovino</option>
-        </select>
+      <div>
+        <form action="">
+          <label for="eleccionAnimal">Elegir Animal</label>
+          <select name="eleccionAnimal" id="eleccionAnimal">
+            <option value="Ponedora Lohmahn">Gallinas ponedoras Lohmann Marron</option>
+            <option value="Ponedora Leghorn">Gallinas ponedoras Leghorn Blanca</option>
+            <option value="Pollos Parrilleros Broiler">Pollos parrilleros Broiler</option>
+            <option value="Cerdos">Cerdos</option>
+            <option value="Ganado Bovino">Ganado Bovino</option>
+          </select>
 
-        <label for="cantidadAnimales"
-          >Introducir cantidad de animales a criar</label
-        >
-        <input id="cantidadAnimales" name="cantidadAnimales" type="number" />
+          <label for="cantidadAnimales"
+            >Introducir cantidad de animales a criar</label
+          >
+          <input id="cantidadAnimales" name="cantidadAnimales" type="number" />
 
-        <label id="labelTiempo" for="resultadoTiempo"
-          ><strong>Tiempo de crianza (Días)</strong></label
-        >
-        <input
-          disabled
-          id="resultadoTiempo"
-          name="resultadoTiempo"
-          type="number"
-        />
+          <label id="labelTiempo" for="resultadoTiempo"
+            ><strong>Tiempo de crianza (Días)</strong></label
+          >
+          <input
+            disabled
+            id="resultadoTiempo"
+            name="resultadoTiempo"
+            type="number"
+          />
 
-        <label for="resultadoKilosBalanceado"
-          ><strong>Alimento a consumir (Kg)</strong></label
-        >
-        <input
-          disabled
-          id="resultadoKilosBalanceado"
-          name="resultadoKilosBalanceado"
-          type="number"
-        />
+          <label for="resultadoKilosBalanceado"
+            ><strong>Alimento a consumir (Kg)</strong></label
+          >
+          <input
+            disabled
+            id="resultadoKilosBalanceado"
+            name="resultadoKilosBalanceado"
+            type="number"
+          />
 
-        <label for="resultadoCosto"
-          ><strong>Costo de crianza del lote (AR$)</strong></label
-        >
-        <input
-          disabled
-          id="resultadoCosto"
-          name="resultadoCosto"
-          type="number"
-        />
+          <label for="resultadoCosto"
+            ><strong>Costo de crianza del lote (AR$)</strong></label
+          >
+          <input
+            disabled
+            id="resultadoCosto"
+            name="resultadoCosto"
+            type="number"
+          />
 
-        <button
-          class="btn btn-success"
-          type="submit"
-          name="botonCalcular"
-          id="botonCalcular"
-        >
-          ¡Calcular!
-        </button>
-        <button
-          class="btn btn-warning"
-          type="submit"
-          name="botonCalcular"
-          id="botonCalcular"
-        >
-          Borrar todo
-        </button>
-      </form>
+          <button
+            class="btn btn-success"
+            type="submit"
+            name="botonCalcular"
+            id="botonCalcular"
+          >
+            Guardar
+          </button>
+          <button
+            class="btn btn-warning"
+            type="reset"
+            name="botonResetForm"
+            id="botonResetForm"
+          >
+            Borrar todo
+          </button>
+          <button class="btn btn-info" name="botonCalcular" id="botonHistorial">
+            Mostrar historial
+          </button>
+        </form>
 
-      <i><p id="aclaraciones"></p></i>
+        <i><p id="aclaraciones"></p></i>
+      </div>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>
+              <h3><strong>Animal</strong></h3>
+            </th>
+            <th><h3>Cantidad animales</h3></th>
+            <th><h3>Cantidad kilos de alimento</h3></th>
+            <th><h3>Costo del balanceado</h3></th>
+            <th><h3>Tiempo de crianza</h3></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
     </main>
 
-    <footer class="footerIndex">
+    <footer style="display: none" class="footerIndex">
       <div class="footerChild footerChild1">
         <p>Avícola Frutos del Nido</p>
         <p>Granja avícola y Alimentos Balanceados de Granja</p>

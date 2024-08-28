@@ -11,11 +11,13 @@ body {
 .navbar {
   background-image: linear-gradient(
     to top,
+    antiquewhite,
     rgb(161, 216, 148),
     rgb(52, 173, 52)
   ) !important;
   border: none !important;
   border-width: 0 !important;
+  height: 120px;
 }
 
 .separadorNavBar{
