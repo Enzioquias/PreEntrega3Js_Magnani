@@ -8,6 +8,7 @@ const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
 const tabla = document.getElementById("tabla");
+const tablaEncabezado = document.getElementById("tablaEncabezado");
 
 const tituloNavBar = document.getElementById("navbar-titulo");
 const navbar = document.querySelector("nav");
@@ -17,11 +18,15 @@ const aclaraciones = document.getElementById("aclaraciones");
 const modoOscuroBoton = document.getElementById("modoOscuro");
 const body = document.querySelector("body");
 
+
 const darkMode = localStorage.getItem("darkMode") === "true";
 // El resultado es un booleano que indica si ya teniamos darkMode enabled desde antes. De ser asi aplica los cambios de dark mode
 if (localStorage.getItem("darkMode") === "true") {
   modoOscuroOn();
 }
+
+
+  
 
 class ItemHistorial {
   constructor(
@@ -43,8 +48,11 @@ let itemsHistorial;
 if (localStorage.getItem("arrayPedidos")) {
   itemsHistorial = JSON.parse(localStorage.getItem("arrayPedidos"));
   escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
+  tablaEncabezado.style.display="";
+
 } else {
   itemsHistorial = [];
+  tablaEncabezado.style.display="none";
 }
 
 botonGuardar.addEventListener("click", (event) => {
@@ -65,12 +73,15 @@ botonGuardar.addEventListener("click", (event) => {
     );
     localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
     escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
+    tablaEncabezado.style.display="";
+
   }
 });
 
 botonBorrar.addEventListener("click", (event) => {
-  event.preventDefault();
+  event.preventDefault;
   localStorage.removeItem("arrayPedidos");
+  location.reload();
 });
 
 selector.addEventListener("change", (event) => {
@@ -188,9 +199,19 @@ function modoOscuroOff() {
 
 function escrituraTabla(arr) {
   arr.forEach((elemento) => {
+    fetch("https://dolarapi.com/v1/dolares/blue",)
+  .then(response => response.json())
+  .then(data => 
+    {let valorDolar = data.compra})
+
     let fila = document.createElement("tr");
     fila.classList.add("filaHistorial");
-    fila.innerHTML = `<td>${elemento.animal}</td><td>${elemento.cantidadAnimales} </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${elemento.costoBalanceado}</td><td>${elemento.tiempoCrianza}`;
+    if((elemento.tiempoCrianza)==0){
+      elemento.tiempoCrianza="Esta ración es diaria"
+    } else{
+      elemento.tiempoCrianza=`${elemento.tiempoCrianza} días`
+    }
+    fila.innerHTML = `<td>${elemento.animal}</td><td>${elemento.cantidadAnimales} </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${elemento.costoBalanceado}</td><td>$${elemento.costoBalanceado*valorDolar}<td>${elemento.tiempoCrianza}`;
     tabla.appendChild(fila);
   });
 }
