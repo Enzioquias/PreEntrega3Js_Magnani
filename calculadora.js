@@ -1,11 +1,13 @@
 const selector = document.getElementById("eleccionAnimal");
 const inputCantidad = document.getElementById("cantidadAnimales");
-const botonCalcular = document.getElementById("botonCalcular");
+const botonGuardar = document.getElementById("botonGuardar");
+const botonBorrar = document.getElementById("botonResetForm");
 const resultadoTiempo = document.getElementById("resultadoTiempo");
 const labelTiempo = document.getElementById("labelTiempo");
 const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
+const tabla = document.getElementById("tabla");
 
 const tituloNavBar = document.getElementById("navbar-titulo");
 const navbar = document.querySelector("nav");
@@ -36,23 +38,39 @@ class ItemHistorial {
     this.tiempoCrianza = tiempoCrianza;
   }
 }
-const itemsHistorial = [];
 
-botonCalcular.addEventListener("click", (event) => {
-  event.preventDefault();
-  calculoDePagina();
-  if(inputCantidad.value>0){
-  itemsHistorial.push(
-    new ItemHistorial(
-      selector.value,
-      inputCantidad.value,
-      resultadoKilosBalanceado.value,
-      resultadoCosto.value,
-      resultadoTiempo.value
-    )
-  );
-  localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
+let itemsHistorial;
+if (localStorage.getItem("arrayPedidos")) {
+  itemsHistorial = JSON.parse(localStorage.getItem("arrayPedidos"));
+  escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
+} else {
+  itemsHistorial = [];
 }
+
+botonGuardar.addEventListener("click", (event) => {
+  event.preventDefault();
+  const filasABorrar = document.querySelectorAll(".filaHistorial");
+  filasABorrar.forEach((elemento) => elemento.parentNode.removeChild(elemento));
+
+  calculoDePagina();
+  if (inputCantidad.value > 0) {
+    itemsHistorial.push(
+      new ItemHistorial(
+        selector.value,
+        inputCantidad.value,
+        resultadoKilosBalanceado.value,
+        resultadoCosto.value,
+        resultadoTiempo.value
+      )
+    );
+    localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
+    escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
+  }
+});
+
+botonBorrar.addEventListener("click", (event) => {
+  event.preventDefault();
+  localStorage.removeItem("arrayPedidos");
 });
 
 selector.addEventListener("change", (event) => {
@@ -70,7 +88,6 @@ if (animalesStorage) {
 
 function calculoDePagina() {
   mostrarTiempo();
-
 
   let seleccionAnimal = selector.value;
   let cantidadAnimales = inputCantidad.value;
@@ -167,4 +184,13 @@ function modoOscuroOff() {
   resultadoKilosBalanceado.style.color = "";
   resultadoTiempo.style.color = "";
   localStorage.setItem("darkMode", "f");
+}
+
+function escrituraTabla(arr) {
+  arr.forEach((elemento) => {
+    let fila = document.createElement("tr");
+    fila.classList.add("filaHistorial");
+    fila.innerHTML = `<td>${elemento.animal}</td><td>${elemento.cantidadAnimales} </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${elemento.costoBalanceado}</td><td>${elemento.tiempoCrianza}`;
+    tabla.appendChild(fila);
+  });
 }
