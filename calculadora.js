@@ -8,7 +8,8 @@ const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
 const tabla = document.getElementById("tabla");
-const tablaEncabezado = document.getElementById("tablaEncabezado");
+
+const tablaEncabezado = document.querySelectorAll(".tablaEncabezado");
 
 const tituloNavBar = document.getElementById("navbar-titulo");
 const navbar = document.querySelector("nav");
@@ -18,15 +19,11 @@ const aclaraciones = document.getElementById("aclaraciones");
 const modoOscuroBoton = document.getElementById("modoOscuro");
 const body = document.querySelector("body");
 
-
 const darkMode = localStorage.getItem("darkMode") === "true";
-// El resultado es un booleano que indica si ya teniamos darkMode enabled desde antes. De ser asi aplica los cambios de dark mode
+
 if (localStorage.getItem("darkMode") === "true") {
   modoOscuroOn();
 }
-
-
-  
 
 class ItemHistorial {
   constructor(
@@ -48,11 +45,14 @@ let itemsHistorial;
 if (localStorage.getItem("arrayPedidos")) {
   itemsHistorial = JSON.parse(localStorage.getItem("arrayPedidos"));
   escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
-  tablaEncabezado.style.display="";
-
+  tablaEncabezado.forEach((elemento) => {
+    elemento.style.display = "";
+  });
 } else {
   itemsHistorial = [];
-  tablaEncabezado.style.display="none";
+  tablaEncabezado.forEach((elemento) => {
+    elemento.style.display = "none";
+  });
 }
 
 botonGuardar.addEventListener("click", (event) => {
@@ -73,8 +73,7 @@ botonGuardar.addEventListener("click", (event) => {
     );
     localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
     escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
-    tablaEncabezado.style.display="";
-
+    tablaEncabezado.style.display = "";
   }
 });
 
@@ -146,6 +145,7 @@ function calculoDePagina() {
 
 modoOscuroBoton.addEventListener("click", (event) => {
   modoOscuroCambios();
+  formatoTablas();
 });
 
 function removerTiempo() {
@@ -169,6 +169,7 @@ function modoOscuroCambios() {
 }
 
 function modoOscuroOn() {
+  filaHistorial = document.querySelector(".filaHistorial");
   body.style.backgroundColor = "rgb(40,40,40)";
   body.style.color = "white";
   footer.style.backgroundColor = "black";
@@ -182,9 +183,12 @@ function modoOscuroOn() {
     "important"
   );
   tituloNavBar.style.setProperty("color", "white", "important");
+
+  formatoTablas();
 }
 
 function modoOscuroOff() {
+  filaHistorial = document.querySelector(".filaHistorial");
   body.style.backgroundColor = "";
   body.style.color = "";
   footer.style.backgroundColor = "";
@@ -195,23 +199,64 @@ function modoOscuroOff() {
   resultadoKilosBalanceado.style.color = "";
   resultadoTiempo.style.color = "";
   localStorage.setItem("darkMode", "f");
+
+  formatoTablas();
 }
 
-function escrituraTabla(arr) {
-  arr.forEach((elemento) => {
-    fetch("https://dolarapi.com/v1/dolares/blue",)
-  .then(response => response.json())
-  .then(data => 
-    {let valorDolar = data.compra})
+async function valorDolar() {
+  const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+  const json = await response.json();
+  return json.compra;
+}
 
+async function escrituraTabla(arr) {
+  let valor = await valorDolar();
+
+  arr.forEach((elemento) => {
     let fila = document.createElement("tr");
     fila.classList.add("filaHistorial");
-    if((elemento.tiempoCrianza)==0){
-      elemento.tiempoCrianza="Esta ración es diaria"
-    } else{
-      elemento.tiempoCrianza=`${elemento.tiempoCrianza} días`
+    if (elemento.tiempoCrianza == 0) {
+      elemento.tiempoCrianza = "Esta ración es diaria";
+    } else {
+      elemento.tiempoCrianza = `${elemento.tiempoCrianza} días`;
     }
-    fila.innerHTML = `<td>${elemento.animal}</td><td>${elemento.cantidadAnimales} </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${elemento.costoBalanceado}</td><td>$${elemento.costoBalanceado*valorDolar}<td>${elemento.tiempoCrianza}`;
+    fila.innerHTML = `<td>${elemento.animal}</td><td>${
+      elemento.cantidadAnimales
+    } </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${
+      elemento.costoBalanceado
+    }</td><td>$${(elemento.costoBalanceado / valor).toFixed(2)}<td>${
+      elemento.tiempoCrianza
+    }`;
     tabla.appendChild(fila);
+  });
+
+  formatoTablas();
+ 
+}
+
+function formatoTablas() {
+  tablaEncabezado.forEach((elemento) => {
+    elemento.style.border = "1px solid black";
+
+    if (localStorage.getItem("darkMode") === "true") {
+      elemento.style.color="black";
+      elemento.style.backgroundColor = "rgb(  89, 89, 89  )";
+    } else {
+      elemento.style.backgroundColor = "rgb( 146, 238, 238 )";
+    }
+
+
+  });
+
+  const tablaFila = document.querySelectorAll("td");
+
+  tablaFila.forEach((elemento) => {
+    elemento.style.border = "1px solid black";
+
+    if (localStorage.getItem("darkMode") === "true") {
+      elemento.style.backgroundColor = "rgb(  138, 138, 138  )";
+    } else {
+      elemento.style.backgroundColor = "rgb( 208, 245, 245 )";
+    }
   });
 }
