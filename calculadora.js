@@ -138,7 +138,7 @@ function calculoDePagina() {
       resultadoCosto.value = resultadoKilosBalanceado.value * 310;
       aclaraciones.innerText = `Costo de crianza y consumo de alimento calculados para una razon diaria y asumiendo un lote de bovinos de aprox 200-300kg de peso vivo \n \n En caso de ser necesario realizar ajustes a otros pesos de bovinos, calcular ración diaria equivalente al 2% del peso vivo de los animales.`;
     default:
-      resultadoTiempo.value = 0;
+      
       break;
   }
 }
@@ -149,6 +149,7 @@ modoOscuroBoton.addEventListener("click", (event) => {
 });
 
 function removerTiempo() {
+  resultadoTiempo.value = 0;
   resultadoTiempo.style.display = "none";
   labelTiempo.style.display = "none";
 }
