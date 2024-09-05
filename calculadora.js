@@ -57,6 +57,9 @@ if (localStorage.getItem("arrayPedidos")) {
 
 botonGuardar.addEventListener("click", (event) => {
   event.preventDefault();
+  
+
+
   const filasABorrar = document.querySelectorAll(".filaHistorial");
   filasABorrar.forEach((elemento) => elemento.parentNode.removeChild(elemento));
 
@@ -71,9 +74,10 @@ botonGuardar.addEventListener("click", (event) => {
         resultadoTiempo.value
       )
     );
+    tablaEncabezado.forEach((elemento) => {
+      elemento.style.display = ""})
     localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
     escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
-    tablaEncabezado.style.display = "";
   }
 });
 
