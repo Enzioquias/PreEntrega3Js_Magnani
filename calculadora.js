@@ -42,23 +42,10 @@ class ItemHistorial {
 }
 
 let itemsHistorial;
-if (localStorage.getItem("arrayPedidos")) {
-  itemsHistorial = JSON.parse(localStorage.getItem("arrayPedidos"));
-  escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
-  tablaEncabezado.forEach((elemento) => {
-    elemento.style.display = "";
-  });
-} else {
-  itemsHistorial = [];
-  tablaEncabezado.forEach((elemento) => {
-    elemento.style.display = "none";
-  });
-}
+mapeoEncabezadoTabla();
 
 botonGuardar.addEventListener("click", (event) => {
   event.preventDefault();
-  
-
 
   const filasABorrar = document.querySelectorAll(".filaHistorial");
   filasABorrar.forEach((elemento) => elemento.parentNode.removeChild(elemento));
@@ -75,7 +62,8 @@ botonGuardar.addEventListener("click", (event) => {
       )
     );
     tablaEncabezado.forEach((elemento) => {
-      elemento.style.display = ""})
+      elemento.style.display = "";
+    });
     localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
     escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
   }
@@ -142,7 +130,6 @@ function calculoDePagina() {
       resultadoCosto.value = resultadoKilosBalanceado.value * 310;
       aclaraciones.innerText = `Costo de crianza y consumo de alimento calculados para una razon diaria y asumiendo un lote de bovinos de aprox 200-300kg de peso vivo \n \n En caso de ser necesario realizar ajustes a otros pesos de bovinos, calcular ración diaria equivalente al 2% del peso vivo de los animales.`;
     default:
-      
       break;
   }
 }
@@ -217,26 +204,43 @@ async function valorDolar() {
 async function escrituraTabla(arr) {
   let valor = await valorDolar();
 
-  arr.forEach((elemento) => {
+  let i = 1;
+
+  arr.forEach((elemento, index) => {
     let fila = document.createElement("tr");
     fila.classList.add("filaHistorial");
+
     if (elemento.tiempoCrianza == 0) {
       elemento.tiempoCrianza = "Esta ración es diaria";
     } else {
       elemento.tiempoCrianza = `${elemento.tiempoCrianza} días`;
     }
-    fila.innerHTML = `<td>${elemento.animal}</td><td>${
-      elemento.cantidadAnimales
-    } </td><td>${elemento.cantidadKilosBalanceado}Kg</td><td>$${
-      elemento.costoBalanceado
-    }</td><td>$${(elemento.costoBalanceado / valor).toFixed(2)}<td>${
-      elemento.tiempoCrianza
-    }`;
+
+    fila.innerHTML = `
+      <td>${i}</td>
+      <td>${elemento.animal}</td>
+      <td>${elemento.cantidadAnimales}</td>
+      <td>${elemento.cantidadKilosBalanceado}Kg</td>
+      <td>$${elemento.costoBalanceado}</td>
+      <td>$${(elemento.costoBalanceado / valor).toFixed(2)}</td>
+      <td>${elemento.tiempoCrianza}</td>
+      <td><button type="button" class="borrarFila btn btn-danger">x</button></td>
+    `;
     tabla.appendChild(fila);
+
+    fila.querySelector(".borrarFila").addEventListener("click", () => {
+      fila.remove();
+
+      itemsHistorial.splice(index, 1);
+
+      localStorage.setItem("arrayPedidos", JSON.stringify(itemsHistorial));
+      location.reload();
+    });
+
+    i++;
   });
 
   formatoTablas();
- 
 }
 
 function formatoTablas() {
@@ -244,13 +248,11 @@ function formatoTablas() {
     elemento.style.border = "1px solid black";
 
     if (localStorage.getItem("darkMode") === "true") {
-      elemento.style.color="black";
+      elemento.style.color = "black";
       elemento.style.backgroundColor = "rgb(  89, 89, 89  )";
     } else {
       elemento.style.backgroundColor = "rgb( 146, 238, 238 )";
     }
-
-
   });
 
   const tablaFila = document.querySelectorAll("td");
@@ -264,4 +266,19 @@ function formatoTablas() {
       elemento.style.backgroundColor = "rgb( 208, 245, 245 )";
     }
   });
+}
+
+function mapeoEncabezadoTabla() {
+  if ((localStorage.getItem("arrayPedidos"))&&(JSON.parse(localStorage.getItem("arrayPedidos")).length>0)) {
+    itemsHistorial = JSON.parse(localStorage.getItem("arrayPedidos"));
+    escrituraTabla(JSON.parse(localStorage.getItem("arrayPedidos")));
+    tablaEncabezado.forEach((elemento) => {
+      elemento.style.display = "";
+    });
+  } else {
+    itemsHistorial = [];
+    tablaEncabezado.forEach((elemento) => {
+      elemento.style.display = "none";
+    });
+  }
 }
