@@ -7,6 +7,7 @@ const labelTiempo = document.getElementById("labelTiempo");
 const resultadoKilosBalanceado = document.getElementById(
   "resultadoKilosBalanceado"
 );
+const valorDolarPagina = document.getElementById("valorDolarPagina")
 const tabla = document.getElementById("tabla");
 
 const tablaEncabezado = document.querySelectorAll(".tablaEncabezado");
@@ -24,6 +25,8 @@ const darkMode = localStorage.getItem("darkMode") === "true";
 if (localStorage.getItem("darkMode") === "true") {
   modoOscuroOn();
 }
+
+valorDolar();
 
 class ItemHistorial {
   constructor(
@@ -195,9 +198,28 @@ function modoOscuroOff() {
   formatoTablas();
 }
 
+  // Fecha de Actualizacion: ${JSON.parse(json.fechaActualizacion)}.
+ 
+
 async function valorDolar() {
-  const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+  const response = await fetch("https://dolarapi.com/v1/dolares/oficial");
   const json = await response.json();
+  valorDolarPagina.innerText=`
+
+  Tipo de Cambio: ${(json.casa)}. 
+
+  Compra: $ ${(json.compra)}.
+
+  Venta: $ ${(json.venta)}.
+
+  Fecha: ${(json.fechaActualizacion)}.
+
+
+  
+  
+  
+  `;
+  console.log(json);
   return json.compra;
 }
 

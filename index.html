@@ -46,75 +46,90 @@
     <main>
       <h2>Calculadora de Forrajes para Animales de Granja</h2>
 
-      <div>
-        <form action="">
-          <label for="eleccionAnimal">Elegir Animal</label>
-          <select name="eleccionAnimal" id="eleccionAnimal">
-            <option value="Ponedora Lohmahn">
-              Gallinas ponedoras Lohmann Marron
-            </option>
-            <option value="Ponedora Leghorn">
-              Gallinas ponedoras Leghorn Blanca
-            </option>
-            <option value="Pollos Parrilleros Broiler">
-              Pollos parrilleros Broiler
-            </option>
-            <option value="Cerdos">Cerdos</option>
-            <option value="Ganado Bovino">Ganado Bovino</option>
-          </select>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <form class="grid_child" action="">
+              <label for="eleccionAnimal">Elegir Animal</label>
+              <select name="eleccionAnimal" id="eleccionAnimal">
+                <option value="Ponedora Lohmahn">
+                  Gallinas ponedoras Lohmann Marron
+                </option>
+                <option value="Ponedora Leghorn">
+                  Gallinas ponedoras Leghorn Blanca
+                </option>
+                <option value="Pollos Parrilleros Broiler">
+                  Pollos parrilleros Broiler
+                </option>
+                <option value="Cerdos">Cerdos</option>
+                <option value="Ganado Bovino">Ganado Bovino</option>
+              </select>
 
-          <label for="cantidadAnimales"
-            >Introducir cantidad de animales a criar</label
-          >
-          <input id="cantidadAnimales" name="cantidadAnimales" type="number" />
+              <label for="cantidadAnimales"
+                >Introducir cantidad de animales a criar</label
+              >
+              <input
+                id="cantidadAnimales"
+                name="cantidadAnimales"
+                type="number"
+              />
 
-          <label id="labelTiempo" for="resultadoTiempo"
-            ><strong>Tiempo de crianza (Días)</strong></label
-          >
-          <input
-            disabled
-            id="resultadoTiempo"
-            name="resultadoTiempo"
-            type="number"
-          />
+              <label id="labelTiempo" for="resultadoTiempo"
+                ><strong>Tiempo de crianza (Días)</strong></label
+              >
+              <input
+                disabled
+                id="resultadoTiempo"
+                name="resultadoTiempo"
+                type="number"
+              />
 
-          <label for="resultadoKilosBalanceado"
-            ><strong>Alimento a consumir (Kg)</strong></label
-          >
-          <input
-            disabled
-            id="resultadoKilosBalanceado"
-            name="resultadoKilosBalanceado"
-            type="number"
-          />
+              <label for="resultadoKilosBalanceado"
+                ><strong>Alimento a consumir (Kg)</strong></label
+              >
+              <input
+                disabled
+                id="resultadoKilosBalanceado"
+                name="resultadoKilosBalanceado"
+                type="number"
+              />
 
-          <label for="resultadoCosto"
-            ><strong>Costo de crianza del lote (AR$)</strong></label
-          >
-          <input
-            disabled
-            id="resultadoCosto"
-            name="resultadoCosto"
-            type="number"
-          />
+              <label for="resultadoCosto"
+                ><strong>Costo de crianza del lote (AR$)</strong></label
+              >
+              <input
+                disabled
+                id="resultadoCosto"
+                name="resultadoCosto"
+                type="number"
+              />
 
-          <button
-            class="btn btn-success"
-            type="submit"
-            name="botonGuardar"
-            id="botonGuardar"
-          >
-            Guardar
-          </button>
-          <button
-            class="btn btn-warning"
-            type="reset"
-            name="botonResetForm"
-            id="botonResetForm"
-          >
-            Borrar todo
-          </button>
-        </form>
+              <button
+                class="btn btn-success"
+                type="submit"
+                name="botonGuardar"
+                id="botonGuardar"
+              >
+                Guardar
+              </button>
+              <button
+                class="btn btn-warning"
+                type="reset"
+                name="botonResetForm"
+                id="botonResetForm"
+              >
+                Borrar todo
+              </button>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <img style="height: 50px; width: 80px; display: inline;" src="./assets/images/dolarTransparente.png" alt="">
+            <h3 style="display: inline;">Valor del dólar a la fecha
+            </h3>
+            <img style="height: 50px; width: 80px; display: inline;" src="./assets/images/dolarTransparente.png" alt="">
+            <p id="valorDolarPagina"> </p>
+          </div>
+        </div>
 
         <i><p id="aclaraciones"></p></i>
       </div>
@@ -145,7 +160,6 @@
             <th class="tablaEncabezado">
               <h4></h4>
             </th>
-            
           </tr>
         </thead>
       </table>
