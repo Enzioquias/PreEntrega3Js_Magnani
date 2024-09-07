@@ -197,8 +197,6 @@ function modoOscuroOff() {
 
   formatoTablas();
 }
-
-  // Fecha de Actualizacion: ${JSON.parse(json.fechaActualizacion)}.
  
 
 async function valorDolar() {
@@ -219,13 +217,15 @@ async function valorDolar() {
   
   
   `;
-  console.log(json);
+
+  localStorage.setItem("valorDolar", JSON.stringify( json.compra));
+
   return json.compra;
 }
 
 async function escrituraTabla(arr) {
-  let valor = await valorDolar();
-
+  let valor = localStorage.getItem("valorDolar") || await valorDolar();
+  
   let i = 1;
 
   arr.forEach((elemento, index) => {
